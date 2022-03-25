@@ -47,7 +47,7 @@ namespace UygSinaviDeneme
             var lst = (from s in db.Urunler
                        select new
                        {
-
+                           Id=s.Id,
                            UrunAdi = s.UrunAdi,
                            UreticiFirma = s.UreticiFirma,
                            Fiyat = s.Fiyat,
@@ -57,10 +57,11 @@ namespace UygSinaviDeneme
             foreach (var liste in lst)
             {
                 Liste.Rows.Add();
-                Liste.Rows[i].Cells[0].Value = liste.UrunAdi;
-                Liste.Rows[i].Cells[1].Value = liste.UreticiFirma;
-                Liste.Rows[i].Cells[2].Value = liste.Fiyat;
-                Liste.Rows[i].Cells[3].Value = liste.KategoriAdi;
+                Liste.Rows[i].Cells[0].Value = liste.Id;
+                Liste.Rows[i].Cells[1].Value = liste.UrunAdi;
+                Liste.Rows[i].Cells[2].Value = liste.UreticiFirma;
+                Liste.Rows[i].Cells[3].Value = liste.Fiyat;
+                Liste.Rows[i].Cells[4].Value = liste.KategoriAdi;
                 sira++; i++;
             }
             Liste.AllowUserToAddRows = false;
@@ -75,7 +76,7 @@ namespace UygSinaviDeneme
             urn.UrunAdi = txturunadi.Text;
             urn.UreticiFirma = txtureticifirma.Text;
             urn.Fiyat = txtfiyat.Text;
-            if (cmbkategori.SelectedValue!= null)
+            if (cmbkategori.SelectedValue != null)
             {
                 urn.KategoriId = cmbkategori.SelectedIndex;
 
@@ -96,7 +97,7 @@ namespace UygSinaviDeneme
             txtureticifirma.Clear();
             txturunadi.Clear();
             cmbkategori.SelectedIndex = -1;
-                
+
         }
 
         private void btnCikis_Click(object sender, EventArgs e)
@@ -120,7 +121,7 @@ namespace UygSinaviDeneme
                 urn.KategoriId = cmbkategori.SelectedIndex;
 
             }
-        
+
             db.SaveChanges();
             Listele();
             Temizle();
@@ -128,19 +129,18 @@ namespace UygSinaviDeneme
 
         private void Liste_DoubleClick(object sender, EventArgs e)
         {
-            
-            secimId = (int)Liste.CurrentRow.Cells[0].RowIndex;
-            secimId ++;
+
+            secimId = (int?)Liste.CurrentRow.Cells[0].Value ?? -1;
             Ac(secimId);
         }
 
         private void Ac(int i)
         {
             secimId = i;
-            Urun urn = db.Urunler.Find(i);
+            urunler = db.Urunler.Find(i);
             try
             {
-                Urun urun = urn;
+                Urun urun = urunler;
                 txtfiyat.Text = urun.Fiyat;
                 txtureticifirma.Text = urun.UreticiFirma;
                 txturunadi.Text = urun.UrunAdi;
@@ -151,8 +151,20 @@ namespace UygSinaviDeneme
 
                 MessageBox.Show("hata");
             }
-             
-             
+
+
+        }
+
+        private void btnSil_Click(object sender, EventArgs e)
+        {
+            if (secimId > 0)
+            {
+                Urun urun = urunler;
+                db.Urunler.Remove(urun);
+                db.SaveChanges();
+            }
+            Listele();
+            Temizle();
         }
     }
 }

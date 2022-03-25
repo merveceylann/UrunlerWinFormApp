@@ -42,6 +42,7 @@
             this.txtfiyat = new System.Windows.Forms.TextBox();
             this.cmbkategori = new System.Windows.Forms.ComboBox();
             this.Liste = new System.Windows.Forms.DataGridView();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.UrunAdi = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.UreticiFirma = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Fiyat = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -77,6 +78,7 @@
             this.btnSil.TabIndex = 1;
             this.btnSil.Text = "Sil";
             this.btnSil.UseVisualStyleBackColor = true;
+            this.btnSil.Click += new System.EventHandler(this.btnSil_Click);
             // 
             // btnTemizle
             // 
@@ -167,6 +169,7 @@
             // 
             this.Liste.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.Liste.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Id,
             this.UrunAdi,
             this.UreticiFirma,
             this.Fiyat,
@@ -179,6 +182,13 @@
             this.Liste.Size = new System.Drawing.Size(1377, 204);
             this.Liste.TabIndex = 11;
             this.Liste.DoubleClick += new System.EventHandler(this.Liste_DoubleClick);
+            // 
+            // Id
+            // 
+            this.Id.HeaderText = "Id";
+            this.Id.MinimumWidth = 6;
+            this.Id.Name = "Id";
+            this.Id.Width = 125;
             // 
             // UrunAdi
             // 
@@ -252,6 +262,7 @@
         private System.Windows.Forms.TextBox txtfiyat;
         private System.Windows.Forms.ComboBox cmbkategori;
         private System.Windows.Forms.DataGridView Liste;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn UrunAdi;
         private System.Windows.Forms.DataGridViewTextBoxColumn UreticiFirma;
         private System.Windows.Forms.DataGridViewTextBoxColumn Fiyat;
